@@ -1,0 +1,3 @@
+cbapi>=1.3.4
+requests>=2.2
+argparse
