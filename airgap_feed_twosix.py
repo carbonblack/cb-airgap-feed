@@ -92,7 +92,7 @@ def main(argv):
 
     else:
         exportpath = os.path.join(folder,"feeds")
-        print ('Exporting Threat Intelligence Feeds to %s',exportpath)
+        print ('Exporting Threat Intelligence Feeds to %s', exportpath)
         try:
             os.mkdir(folder)
             os.mkdir(exportpath)
@@ -103,7 +103,7 @@ def main(argv):
 
         export_feeds = ['abusech', 'Bit9AdvancedThreats', 'alienvault',
                         'CbCommunity', 'Bit9EarlyAccess', 'Bit9SuspiciousIndicators', 'Bit9EndpointVisibility',
-                        'fbthreatexchange', 'iconmatching', 'CbKnownIOCs', 'sans', 'mdl', 'ThreatConnect', 'tor']
+                        'fbthreatexchange', 'CbKnownIOCs', 'sans', 'mdl', 'ThreatConnect', 'tor']
 
         feeds = requests.get(url, headers=header, verify=False)
         feeds.raise_for_status()
