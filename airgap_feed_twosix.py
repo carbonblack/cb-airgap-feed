@@ -51,24 +51,26 @@ def main(argv):
     parser = build_cli_parser()
     commands = parser.add_subparsers(help="ExIm Commands", dest="command")
 
+    default_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)),"feeds")
+
     import_command = commands.add_parser("import", help="Import feeds from disk")
-    import_command.add_argument("-f", "--folder", help="Folder to import", default=None, required=False)
+    import_command.add_argument("-f", "--folder", help="Folder to import", default=default_folder, required=False)
 
     export_command = commands.add_parser("export", help="Export feeds to disk")
     export_command.add_argument("-f", "--folder", help="Folder to export to", default=None, required=True)
 
     args = parser.parse_args(args=argv)
-    print (args)
 
     mode = args.command
 
-    folder = args.folder if args.folder else "./"
+    folder = args.folder if args.folder else os.path.abspath(__file__)
 
     folder = re.sub("\/$", "", folder)
     header = {'X-Auth-Token': get_api_token()}
     # if the port is something other than 443 change below
     url = "https://127.0.0.1:443/api/v1/feed"
     if mode == 'import':
+        print ('Importing Threat Intelligence feeds from %s' % folder)
         for root, subdirs, files in os.walk(folder):
             for tempfile in files:
                 filepath = os.path.join(root, tempfile)
@@ -89,8 +91,8 @@ def main(argv):
                         print ("Failed... %s (Error Code: %s)" % (filejson['feedinfo']['name'], feedupdate.status_code))
 
     else:
-        print 'export mode chosen'
         exportpath = os.path.join(folder,"feeds")
+        print ('Exporting Threat Intelligence Feeds to %s',exportpath)
         try:
             os.mkdir(folder)
             os.mkdir(exportpath)
@@ -103,7 +105,6 @@ def main(argv):
                         'CbCommunity', 'Bit9EarlyAccess', 'Bit9SuspiciousIndicators', 'Bit9EndpointVisibility',
                         'fbthreatexchange', 'iconmatching', 'CbKnownIOCs', 'sans', 'mdl', 'ThreatConnect', 'tor']
 
-        url = "https://127.0.0.1:443/api/v1/feed"
         feeds = requests.get(url, headers=header, verify=False)
         feeds.raise_for_status()
         for feed in feeds.json():
@@ -114,13 +115,12 @@ def main(argv):
                 try:
                     response = requests.get(url=feed_url, cert=cert)
                     fn = os.path.join(exportpath, feed_name + ".json")
-                    print(fn)
                     f = open(fn, "w+")
                     try:
                         f.write(json.dumps(response.json()))
                     except Exception as e:
                         print(e)
-                        print( 'failed to write for %s' % feed_name )
+                        print( 'failed to write  %s' % feed_name )
                 except Exception as e:
                     print(e)
                     print('could not export feed_name %s' % feed_name)
