@@ -92,13 +92,13 @@ def main(argv):
 
     else:
         exportpath = os.path.join(folder,"feeds")
-        print ('Exporting Threat Intelligence Feeds to %s', exportpath)
+        print ('Exporting Threat Intelligence Feeds to %s' % exportpath)
         try:
             os.mkdir(folder)
             os.mkdir(exportpath)
-            shutil.copy(os.path.abspath(__file__), folder)
         except OSError as os_error:
             pass  # probbably due to folder already existing
+        shutil.copy(os.path.abspath(__file__), folder)
         cert = ("/etc/cb/certs/carbonblack-alliance-client.crt", "/etc/cb/certs/carbonblack-alliance-client.key")
 
         export_feeds = ['abusech', 'Bit9AdvancedThreats', 'alienvault',
