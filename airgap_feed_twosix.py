@@ -30,16 +30,15 @@ def get_api_token():
     return token
 
 
-def feed_exists(headers, name):
+def get_feed(headers, name):
     # if the port is something other than 443 change below
     url = "https://127.0.0.1:443/api/v1/feed"
     feeds = requests.get(url, headers=headers, verify=False)
     feeds.raise_for_status()
     for feed in feeds.json():
         if feed['name'].lower() == name.lower():
-            return True
-
-    return False
+            return feed
+    return None 
 
 
 def build_cli_parser(description="Cb Airgap Feeds import/export Utility"):
@@ -81,14 +80,24 @@ def main(argv):
                         'manually_added': True,
                         }
                 filejson = json.loads(open(filepath).read())
-                if feed_exists(header, filejson['feedinfo']['name']):
-                    print ("Skipping... %s (already existed)" % (filejson['feedinfo']['name']))
+                feedname = filejson['feedinfo']['name']
+                feed = get_feed(header, feedname)
+                if feed is not None:    
+                    feedid = feed['id']
+                    print ("%s (already existed)" % (feedname))
+                    print ("Attempting update")
+                    feed.update({"feed_url":feed_url,"manually_added":True})
+                    feedupdate = requests.put("{0}/{1}".format(url,feedid), data=json.dumps(feed), headers=header, verify=False)
+                    if feedupdate.status_code == 200:
+                        print ("Updated... %s" % (feedname))
+                    else:
+                        print ("Failed... %s (Error Code: %s)" % (feedname, feedupdate.status_code))
                 else:
                     feedupdate = requests.post(url, data=json.dumps(data), headers=header, verify=False)
                     if feedupdate.status_code == 200:
-                        print ("Added... %s" % (filejson['feedinfo']['name']))
+                        print ("Added... %s" % (feedname))
                     else:
-                        print ("Failed... %s (Error Code: %s)" % (filejson['feedinfo']['name'], feedupdate.status_code))
+                        print ("Failed... %s (Error Code: %s)" % (feedname, feedupdate.status_code))
 
     else:
         exportpath = os.path.join(folder,"feeds")

@@ -74,7 +74,7 @@ class CbFeedShipper(object):
 
         log.info("export_feeds: outdir = {} , cert = {}".format(outdir, cert))
 
-        if not (cert):
+        if cert is None:
             cert = ("/etc/cb/carbonblack-alliance-client.crt", "/etc/cb/carbonblack-alliance-client.key")
 
         export_feeds = ['abusech', 'Bit9AdvancedThreats', 'alienvault',
