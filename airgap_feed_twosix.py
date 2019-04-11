@@ -112,7 +112,7 @@ def main(argv):
 
         export_feeds = ['abusech', 'Bit9AdvancedThreats', 'alienvault',
                         'CbCommunity', 'Bit9EarlyAccess', 'Bit9SuspiciousIndicators', 'Bit9EndpointVisibility',
-                        'fbthreatexchange', 'CbKnownIOCs', 'sans', 'mdl', 'ThreatConnect', 'tor']
+                        'fbthreatexchange', 'CbKnownIOCs', 'sans', 'mdl', 'ThreatConnect', 'tor', 'attackframework']
 
         feeds = requests.get(url, headers=header, verify=False)
         feeds.raise_for_status()
