@@ -20,6 +20,7 @@ The following feeds are supported by this tool:
 * AlienVault Open Threat Exchange
 * Facebook Threat Exchange TLP White Indicators
 * ThreatConnect
+* MITRE ATT&CK Feed
 
 Other Cb Collective Defense Cloud feeds are not able to be exported as they require
 the target Cb Response server to be online and actively communicating with the Collective
