@@ -79,7 +79,7 @@ class CbFeedShipper(object):
 
         export_feeds = ['abusech', 'Bit9AdvancedThreats', 'alienvault',
                         'CbCommunity', 'Bit9EarlyAccess', 'Bit9SuspiciousIndicators', 'Bit9EndpointVisibility',
-                        'fbthreatexchange', 'iconmatching', 'CbKnownIOCs', 'sans', 'mdl', 'ThreatConnect', 'tor']
+                        'fbthreatexchange', 'iconmatching', 'CbKnownIOCs', 'sans', 'mdl', 'ThreatConnect', 'tor', 'attackframework']
 
         export_feeds = map(lambda f: self.cbapi.select(Feed).where("name:" + f).first(), export_feeds)
         export_feeds = filter(lambda f: not f.feed_url.startswith("file:/"), export_feeds)
