@@ -8,12 +8,10 @@ from cbapi.response import *
 
 log = logging.getLogger(__name__)
 
-
-
 #
 # The MIT License (MIT)
 #
-# Copyright (c) 2015 Bit9 + Carbon Black
+# Copyright (c) 2014-2020 VMware, Inc. All Rights Reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -39,14 +37,13 @@ log = logging.getLogger(__name__)
 
 
 class CbFeedShipper(object):
-
     def __init__(self, cbapi=None, force_override=None, verbose=None):
         self.cbapi = cbapi
         self.force_override = force_override
         self.verbose = True if verbose else False
 
     def import_folder(self, folder):
-        #Feed queries seem to be broken
+        # Feed queries seem to be broken
         feeds = {feed.name: feed for feed in self.cbapi.select(Feed).all()}
         print(feeds)
         for root, subdirs, files in os.walk(folder):
@@ -70,7 +67,7 @@ class CbFeedShipper(object):
                     feed.refresh()
                     print(feed)
 
-    def export_feeds(self,outdir,cert=None):
+    def export_feeds(self, outdir, cert=None):
 
         log.info("export_feeds: outdir = {} , cert = {}".format(outdir, cert))
 
@@ -117,8 +114,6 @@ def main():
 
 
 if __name__ == "__main__":
-
     logging.getLogger().setLevel(logging.DEBUG)
-
     main()
 
