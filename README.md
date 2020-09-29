@@ -1,9 +1,9 @@
 # cb-airgap-feed
 
-This tool helps customers import Carbon Black-provided threat intelligence feeds into 
-Cb Response servers installed inside an isolated network. This script will export
-a subset of the Cb Collective Defense Cloud Threat Intelligence Feeds into a 
-set of JSON files which can then be copied and imported into an airgapped Cb Response server.
+This tool helps customers import VMware Carbon Black EDR-provided threat intelligence feeds into 
+EDR servers installed inside an isolated network. This script will export a subset of the Cb Collective 
+Defense Cloud Threat Intelligence Feeds into a set of JSON files which can then be copied and imported 
+into an airgapped EDR server.
 
 The following feeds are supported by this tool:
 
@@ -23,13 +23,13 @@ The following feeds are supported by this tool:
 * MITRE ATT&CK Feed
 
 Other Cb Collective Defense Cloud feeds are not able to be exported as they require
-the target Cb Response server to be online and actively communicating with the Collective
+the target EDR server to be online and actively communicating with the Collective
 Defense Cloud.
 
 
 ## Usage
 
-To use this tool, you will need two Cb Response servers, one with access to the Internet
+To use this tool, you will need two EDR servers, one with access to the Internet
 and the Cb Collective Defense Cloud (the "source"), and one that is disconnected from the Internet
 (the "destination"). The first server will run the script in "export" mode to download the 
 feeds from the Cb Collective Defense Cloud and save them to a local directory. This directory
@@ -38,7 +38,7 @@ through a secure means. The folder includes a copy of the script plus the conten
 the feeds exported from the Cb Collective Defense Cloud.
 
 Once the folder arrives on the destination server, the script is then run in "import" mode
-to import the feed contents into the isolated Cb Response server. This process can be 
+to import the feed contents into the isolated EDR server. This process can be 
 repeated on a regular basis to keep the copies of the feeds on the "destination" server
 in sync with the feeds from the Cb Collective Defense Cloud.
 
