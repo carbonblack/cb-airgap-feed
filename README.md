@@ -44,11 +44,11 @@ in sync with the feeds from the Cb Collective Defense Cloud.
 
 ## Step-by-Step Instructions
 
-1. Run the `airgap_feeds_twosix.py` script on the "source" system with a `-f` argument indicating
+1. Run the `airgap_feeds.py` script on the "source" system with a `-f` argument indicating
    the folder where the feeds should be saved. This folder could be on a mounted USB stick, or
    a temporary directory that will be burned to CD-ROM. For example:
    
-        # ./airgap_feeds_twosix.py export -f /tmp/blah
+        # ./airgap_feeds.py export -f /tmp/blah
         exporting threat intelligence feeds to /tmp/blah
         ...
         # cp -rp /tmp/blah /media/USB
@@ -59,9 +59,9 @@ in sync with the feeds from the Cb Collective Defense Cloud.
 3. Change into the directory containing the script and `feeds` folder that you copied from the 
    "source" server.
 
-4. Run the `airgap_feeds_twosix.py` script on the "destination" system in "import" mode. For example:
+4. Run the `airgap_feeds.py` script on the "destination" system in "import" mode. For example:
 
-        # ./airgap_feeds_twosix.py import
+        # ./airgap_feeds.py import
         importing threat intelligence feeds from /media/USB
         ...
 
