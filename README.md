@@ -1,5 +1,11 @@
 # cb-airgap-feed
 
+## NOTE
+
+This project will no longer be maintained. Starting with EDR version 7.5.0, the cb-airgap-feed script will be incorporated into the EDR distribution. It will work the same way, using the same command-line options, and will be called `/usr/share/cb/cbfeed_airgap`.
+
+## Description
+
 This tool helps customers import VMware Carbon Black EDR-provided threat intelligence feeds into 
 EDR servers installed inside an isolated network. This script will export a subset of the Cb Collective 
 Defense Cloud Threat Intelligence Feeds into a set of JSON files which can then be copied and imported 
